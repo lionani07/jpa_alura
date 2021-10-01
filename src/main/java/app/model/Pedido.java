@@ -13,11 +13,10 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name = "CLIENTE_ID")
-    private Cliente cliente;
-
     private Long id;
+
+    @ManyToOne
+    private Cliente cliente;
 
     private LocalDate data;
 

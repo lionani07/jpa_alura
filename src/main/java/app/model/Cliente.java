@@ -1,6 +1,6 @@
 package app.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
