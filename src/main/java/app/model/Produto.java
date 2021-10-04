@@ -1,9 +1,11 @@
 package app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,5 +25,6 @@ public class Produto {
     private Categoria categoria;
 
     @OneToMany
-    private List<ItensPedido> itens;
+    @JsonIgnore
+    private List<ItensPedido> itens = new ArrayList<>();
 }
