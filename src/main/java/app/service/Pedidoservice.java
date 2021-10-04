@@ -2,7 +2,6 @@ package app.service;
 
 import app.model.ItensPedido;
 import app.model.Pedido;
-import app.repository.ItensPedidoRepository;
 import app.repository.PedidoRepository;
 import app.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,6 @@ public class Pedidoservice {
 
     @Autowired
     private ProdutoRepository produtoRepository;
-
-    @Autowired
-    private ItensPedidoRepository itensPedidoRepository;
 
     public Pedido save(final Pedido pedido) {
         pedido.setItens(buildItens(pedido));
