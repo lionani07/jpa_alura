@@ -4,26 +4,24 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
-@Data
 @Entity
-@Table(name = "pedidos")
-public class Pedido {
+@Data
+@Table(name = "produtos")
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nome;
+
+    private BigDecimal valor;
+
     @ManyToOne
-    private Cliente cliente;
-
-    private LocalDate data;
-
-    private BigDecimal valorTotal;
+    private Categoria categoria;
 
     @OneToMany
     private List<ItensPedido> itens;
-
 }
