@@ -7,8 +7,9 @@ import app.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class Pedidoservice {
@@ -20,14 +21,28 @@ public class Pedidoservice {
     private ProdutoRepository produtoRepository;
 
     public Pedido save(final Pedido pedido) {
-        pedido.setItens(buildItens(pedido));
+        updateItens(pedido);
         return this.pedidoRepository.save(pedido);
     }
 
-    private List<ItensPedido> buildItens(final Pedido pedido) {
-        return pedido.getItens().stream().map(itensPedido -> {
+    private void updateItens(final Pedido pedido) {
+        final var itens = new ArrayList<>(pedido.getItens());
+        pedido.getItens().clear();
+        for (ItensPedido itensPedido : itens) {
             final var produto = this.produtoRepository.findById(itensPedido.getProduto().getId()).orElseThrow();
-            return new ItensPedido(pedido, produto, itensPedido.getQuantidade());
-        }).collect(Collectors.toList());
+            pedido.addItemPedido(new ItensPedido(pedido, produto, itensPedido.getQuantidade()));
+        }
+    }
+
+    public List<Pedido> findAll() {
+        return this.pedidoRepository.findAll();
+    }
+
+    public List<Pedido> findAllByClienteId(Long clienteId) {
+        return this.pedidoRepository.findByClienteId(clienteId);
+    }
+
+    public BigDecimal calculateValorTotalOfPedidos() {
+        return this.pedidoRepository.valorTotal();
     }
 }

@@ -34,4 +34,8 @@ public class ItensPedido {
         this.quantidade = quantidade;
         this.valorUnitario = produto.getValor();
     }
+
+    public BigDecimal getValor() {
+        return this.valorUnitario.multiply(new BigDecimal(quantidade));
+    }
 }

@@ -3,12 +3,13 @@ package app.controller;
 import app.model.Pedido;
 import app.service.Pedidoservice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -28,4 +29,21 @@ public class PedidoController {
                 .toUri();
         return ResponseEntity.created(location).body(pedidoSaved);
     }
+
+    @GetMapping
+    public List<Pedido> findAll() {
+        return this.pedidoservice.findAll();
+    }
+
+    @GetMapping("/{clienteId}")
+    public List<Pedido> findAllByClienteId(@PathVariable Long clienteId) {
+        return this.pedidoservice.findAllByClienteId(clienteId);
+    }
+
+    @GetMapping("/valorTotal")
+    @ResponseStatus(HttpStatus.OK)
+    public BigDecimal valorTotal() {
+        return this.pedidoservice.calculateValorTotalOfPedidos();
+    }
+
 }

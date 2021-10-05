@@ -1,7 +1,6 @@
 package app.model;
 
 import lombok.Data;
-import org.springframework.jmx.export.annotation.ManagedResource;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ public class Pedido {
 
     private LocalDate data;
 
-    private BigDecimal valorTotal;
+    private BigDecimal valorTotal = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItensPedido> itens = new ArrayList<>();
@@ -31,6 +30,7 @@ public class Pedido {
     public void addItemPedido(final ItensPedido itensPedido) {
         itensPedido.setPedido(this);
         this.itens.add(itensPedido);
+        this.valorTotal = this.valorTotal.add(itensPedido.getValor());
     }
 
 }
