@@ -16,9 +16,9 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     @Query("SELECT SUM(p.valorTotal) FROM Pedido p")
     BigDecimal valorTotal();
 
-    @Query(value = "SELECT new app.model.vo.PedidoRelatorioVO(produto.nome, "
-            + "SUM(item.quantidade), "
-            + "MAX(pedido.data)) "
+    @Query(value = "SELECT produto.nome as nome, "
+            + "SUM(item.quantidade) as quantidade, "
+            + "MAX(pedido.data) as data "
             + "FROM Pedido pedido "
             + "JOIN pedido.itens item "
             + "JOIN item.produto produto "
