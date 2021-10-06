@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.model.Pedido;
+import app.model.vo.PedidoRelatorioVO;
 import app.service.Pedidoservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,11 @@ public class PedidoController {
     @ResponseStatus(HttpStatus.OK)
     public BigDecimal valorTotal() {
         return this.pedidoservice.calculateValorTotalOfPedidos();
+    }
+
+    @GetMapping("/relatorio")
+    public List<PedidoRelatorioVO> relatorio() {
+        return this.pedidoservice.relatorioDeVendas();
     }
 
 }

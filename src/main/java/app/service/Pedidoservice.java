@@ -2,6 +2,7 @@ package app.service;
 
 import app.model.ItensPedido;
 import app.model.Pedido;
+import app.model.vo.PedidoRelatorioVO;
 import app.repository.PedidoRepository;
 import app.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,9 @@ public class Pedidoservice {
 
     public BigDecimal calculateValorTotalOfPedidos() {
         return this.pedidoRepository.valorTotal();
+    }
+
+    public List<PedidoRelatorioVO> relatorioDeVendas() {
+        return this.pedidoRepository.relatorio();
     }
 }
