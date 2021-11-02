@@ -36,8 +36,8 @@ public class PedidoController {
         return this.pedidoservice.findAll();
     }
 
-    @GetMapping("/{clienteId}")
-    public List<Pedido> findAllByClienteId(@PathVariable Long clienteId) {
+    @GetMapping(params = "cliente")
+    public List<Pedido> findAllByClienteId(@RequestParam(value = "cliente") Long clienteId) {
         return this.pedidoservice.findAllByClienteId(clienteId);
     }
 
