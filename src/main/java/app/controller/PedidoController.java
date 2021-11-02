@@ -41,7 +41,7 @@ public class PedidoController {
         return this.pedidoservice.findAllByClienteId(clienteId);
     }
 
-    @GetMapping("/valorTotal")
+    @GetMapping("/valor_total")
     @ResponseStatus(HttpStatus.OK)
     public BigDecimal valorTotal() {
         return this.pedidoservice.calculateValorTotalOfPedidos();

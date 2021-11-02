@@ -18,6 +18,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     @Query(value = "SELECT produto.nome as nome, "
             + "SUM(item.quantidade) as quantidade, "
+            + "item.valorUnitario as valorUnitario, "
+            + "SUM(item.quantidade) * item.valorUnitario as valorTotal, "
             + "MAX(pedido.data) as data "
             + "FROM Pedido pedido "
             + "JOIN pedido.itens item "
