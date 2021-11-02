@@ -27,12 +27,12 @@ public class Pedidoservice {
     }
 
     private void updateItens(final Pedido pedido) {
-        final var itens = new ArrayList<>(pedido.getItens());
+        final var itensInRequest = new ArrayList<>(pedido.getItens());
         pedido.getItens().clear();
-        for (ItensPedido itensPedido : itens) {
-            final var produto = this.produtoRepository.findById(itensPedido.getProduto().getId()).orElseThrow();
-            pedido.addItemPedido(new ItensPedido(pedido, produto, itensPedido.getQuantidade()));
-        }
+        itensInRequest.forEach(itensPedidoRequest -> {
+            final var produto = this.produtoRepository.findById(itensPedidoRequest.getProduto().getId()).orElseThrow();
+            pedido.addItemPedido(new ItensPedido(pedido, produto, itensPedidoRequest.getQuantidade()));
+        });
     }
 
     public List<Pedido> findAll() {

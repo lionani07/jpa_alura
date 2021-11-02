@@ -27,10 +27,17 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItensPedido> itens = new ArrayList<>();
 
+    @PrePersist
+    public void prePersist() {
+        this.valorTotal = this.itens.stream()
+                .map(ItensPedido::getValorTotal)
+                .reduce( BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+    }
+
     public void addItemPedido(final ItensPedido itensPedido) {
         itensPedido.setPedido(this);
         this.itens.add(itensPedido);
-        this.valorTotal = this.valorTotal.add(itensPedido.getValor());
     }
 
 }
